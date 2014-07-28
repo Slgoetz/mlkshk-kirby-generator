@@ -1,0 +1,50 @@
+{
+  "name": "generator-mlkshk-kirby",
+  "version": "0.1.0",
+  "description": "Scaffold out a kirby 2.0 cms website and a gulp build set up",
+  "license": "MIT",
+  "main": "app/index.js",
+  "repository": "",
+  "author": "Simon Goetz",
+  "engines": {
+    "node": ">=0.10.0",
+    "npm": ">=1.3"
+  },
+  "files": [
+    "app"
+  ],
+  "keywords": [
+    "yeoman-generator",
+    "web",
+    "app",
+    "front-end",
+    "KirbyCMS",
+    "Kirby",
+    "modernizr",
+    "jquery",
+    "gulp",
+    "SaSS"
+  ],
+  "dependencies": {
+    "yeoman-generator": "~0.16.0",
+    "chalk": "~0.4.0",
+    "crypto-js": "~3.1.0"
+  },
+  "devDependencies": {
+    "mocha": "~1.18.0",
+    "coveralls": "~2.10.0",
+    "mocha-lcov-reporter": "~0.0.1",
+    "blanket": "~1.1.0"
+  },
+  "peerDependencies": {
+    "yo": ">=1.1.0"
+  },
+  "scripts": {
+    "test": "mocha --require blanket --reporter mocha-lcov-reporter | ./node_modules/coveralls/bin/coveralls.js"
+  },
+  "config": {
+    "blanket": {
+      "pattern": "app/index.js"
+    }
+  }
+}

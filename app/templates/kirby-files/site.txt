@@ -1,0 +1,7 @@
+Title: <%= appname %>
+----
+Author: <%= siteAuthor %>
+----
+Description: <%= siteDescription %>
+----
+Copyright: © 2009-(date: Year) (link: http://bastianallgeier.com text: Bastian Allgeier GmbH)
