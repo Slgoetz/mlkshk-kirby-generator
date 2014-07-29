@@ -4,7 +4,7 @@
   "description": "Scaffold out a kirby 2.0 cms website and a gulp build set up",
   "license": "MIT",
   "main": "app/index.js",
-  "repository": "",
+  "repository": "https://github.com/Slgoetz/mlkshk-kirby-generator",
   "author": "Simon Goetz",
   "engines": {
     "node": ">=0.10.0",
