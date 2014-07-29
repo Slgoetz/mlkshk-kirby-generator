@@ -1,4 +1,4 @@
-mlkshk-kirby-generator
+mlkshk-kirby-generator	0.1.1
 ======================
 
 Yeoman, Gulp, SaSS, Kirby CMS
