@@ -28,6 +28,6 @@
         "lazypipe": "^0.2.1",
         "main-bower-files": "^1.0.1",
         "opn": "^0.1.1",
-        "wiredep": "^1.4.3",
+        "wiredep": "^1.4.3"
     }
 }
