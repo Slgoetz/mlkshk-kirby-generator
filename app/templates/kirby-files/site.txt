@@ -4,4 +4,6 @@ Author: <%= siteAuthor %>
 ----
 Description: <%= siteDescription %>
 ----
-Copyright: © 2009-(date: Year) (link: http://bastianallgeier.com text: Bastian Allgeier GmbH)
+Keywords: <%= siteKeywords %>
+----
+Copyright: © (date: Year) (link: http://milkshak.es text: Milkshake Studio)

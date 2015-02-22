@@ -12,7 +12,7 @@ var util = require('util'),
 var CryptoJS = require('crypto-js');
 
 // These variables need to be global
-var whichFolder = 'mlkshk-Kirby',
+var appFolder = 'mlkshk-kirby',
 	kirbyPanel, siteDirectory, kirbyBlog, kirbyContactForm;
 var slugedName = '';
 
@@ -53,15 +53,15 @@ var mlkshkKirbyGenerator = yeoman.generators.Base.extend({
 		console.log(chalk.yellow('Fuck Bitches Make Milkshakes'));
 
 		var prompt = {
-			name: 'whichFolder',
+			name: 'appFolder',
 			message: 'Where would you like this kirby based project to be created? You can change it later, I think.',
-			default: whichFolder
+			default: appFolder
 		};
 
 		//Prompt the user for the folder to set up kirby
 		this.prompt(prompt, function (props){
-			siteDirectory = props.whichFolder + '/app';
-			whichFolder = props.whichFolder;
+			siteDirectory = props.appFolder + '/app';
+			appFolder = props.appFolder;
 			done();
 		}.bind(this));
 	},
@@ -74,20 +74,23 @@ var mlkshkKirbyGenerator = yeoman.generators.Base.extend({
 		var done = this.async();
 
 		//clone repo
+		// https://github.com/getkirby/toolkit.git
+		// https://github.com/getkirby/kirby.git
 		child = exec('git clone --recursive https://github.com/getkirby/starterkit.git ' + siteDirectory,
 			function (error){
 				if (error !== null) {
 					console.log("CloneKirby Error:", error);
 				}
 				done();
-			}.bind(this));
+			}.bind(this)
+		);
 	},
 
 	removeExtraneousFiles: function(){
 		// Make sure this runs synchronously
 		var done = this.async();
 
-		child = exec('rm ./' + siteDirectory + '/site/config/config.php ./' + siteDirectory + '/content/site.txt ./' + siteDirectory + '/.htaccess', 
+		child = exec('rm ./' + siteDirectory + '/content/site.txt', 
 			function (error){
 				if(error !==null ){
 					console.log(error);
@@ -106,7 +109,7 @@ var mlkshkKirbyGenerator = yeoman.generators.Base.extend({
 		 }, {
 		 	name: 'siteTitle',
 		 	message:'Site Name:',
-		 	default: 'Kirby Powered Site'
+		 	default: 'Milkshake Studio Starter Kit'
 		 }, {
 		 	name: 'siteAuthor',
 		 	message:'Site Author:',
@@ -118,26 +121,8 @@ var mlkshkKirbyGenerator = yeoman.generators.Base.extend({
 		 }, {
 		 	name: 'siteKeywords',
 		 	message:'Site Keywords:',
-		 	default: 'Milkshake Studio'
-		 }, {
-		 	name: 'panelUsername',
-		 	message:'User Name:',
-		 	default: 'admin'
-		 }, {
-		 	name: 'panelPassword',
-		 	message:'Password:',
-		 	default: 'password'
-		 }, {
-			type: 'list',
-			name: 'encryption',
-			message: 'How would you like your password to be encrypted?',
-			choices: [{
-				name: 'md5'
-			}, {
-				name: 'sha1'
-			}],
-			default: 'md5'
-		}];
+		 	default: 'Milkshake Studio, Kirby CMS, Yeoman, Gulp, Brooklyn'
+		 }];
 
 		this.prompt(prompts, function (props) {
 			this.slugedName = this._.slugify(props.siteTitle);
@@ -146,17 +131,8 @@ var mlkshkKirbyGenerator = yeoman.generators.Base.extend({
 			this.siteAuthor = props.siteAuthor;
 			this.siteDescription = props.siteDescription;
 			this.siteKeywords = props.siteKeywords;
-			this.panelUsername = props.panelUsername;
-			this.panelPassword = props.panelPassword;
-			this.encryption = props.encryption;
-			// this.includeSass = props.includeSass;
-			// this.includeModernizr = props.includeModernizr;
-
-			if (props.encryption === 'sha1') {
-				this.panelPassword = CryptoJS.SHA1(props.panelPassword);
-			} else if (props.encryption === 'md5') {
-				this.panelPassword = CryptoJS.MD5(props.panelPassword);
-			}
+			this.includeSass = props.includeSass;
+			this.includeModernizr = props.includeModernizr;
 
 			done();
 		}.bind(this));
@@ -188,25 +164,24 @@ var mlkshkKirbyGenerator = yeoman.generators.Base.extend({
 	// },
 
 	gulpfile:function () {
-	  this.template('gulpfile.js', whichFolder + '/gulpfile.js');
+	  this.template('gulpfile.js', appFolder + '/gulpfile.js');
 	},
 
 	bower:function () {
-	  this.template('bower.json', whichFolder + '/bower.json');
+	  this.template('bower.json', appFolder + '/bower.json');
 	},
 
 	app:function(){
 		//copy all files with new information into thier proper location
-		this.template('_package.json', whichFolder + '/package.json');
-		this.template('kirby-files/config.php', siteDirectory + '/site/config/config.php');
-		this.template('kirby-files/site.txt', siteDirectory + '/context/site.txt');
-		this.copy('kirby-files/htaccess', siteDirectory + '/.htaccess');
+		this.template('_package.json', appFolder + '/package.json');
+		this.template('kirby-files/site.txt', siteDirectory + '/content/site.txt');
 		this.copy('kirby-files/header.php', siteDirectory + '/site/snippets/header.php');
 		this.copy('kirby-files/footer.php', siteDirectory + '/site/snippets/footer.php');
-		this.copy('jshintrc', siteDirectory + '.jshintrc');
+		// this.copy('jshintrc', siteDirectory + '.jshintrc');
+		// this.copy('kirby-files/htaccess', siteDirectory + '/.htaccess');
 		// this.copy('editorconfig', whichFolder + '/.editorconfig');
 
-		this.template('kirby-files/admin.php', siteDirectory + '/site/panel/accounts/' + this.panelUsername + '.php');
+		// this.template('kirby-files/admin.php', siteDirectory + '/site/panel/accounts/' + this.panelUsername + '.php');
 	},
 	finish: function () {
 		// Give the user info on how to start developing

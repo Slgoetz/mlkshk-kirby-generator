@@ -1,6 +1,6 @@
 {
   "name": "generator-mlkshk-kirby",
-  "version": "0.1.2",
+  "version": "0.1.3",
   "description": "Scaffold out a kirby 2.0 cms website and a gulp build set up",
   "license": "MIT",
   "main": "app/index.js",

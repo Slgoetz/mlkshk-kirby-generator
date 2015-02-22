@@ -1,5 +1,7 @@
-mlkshk-kirby-generator	0.1.1
+mlkshk-kirby-generator	0.1.3
 ======================
+
+
 
 Yeoman, Gulp, SaSS, Kirby CMS
 
@@ -28,3 +30,5 @@ Once your app is up set up, <code>$ cd</code> into the directory
 
 
 
+##Update 0.1.3
+-added kirby 2.0
