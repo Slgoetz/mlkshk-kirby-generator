@@ -54,7 +54,7 @@ var mlkshkKirbyGenerator = yeoman.generators.Base.extend({
 
 		var prompt = {
 			name: 'appFolder',
-			message: 'Where would you like this kirby based project to be created? You can change it later, I think.',
+			message: 'Where would you like this kirby based project to be created?',
 			default: appFolder
 		};
 
@@ -73,6 +73,7 @@ var mlkshkKirbyGenerator = yeoman.generators.Base.extend({
 		// Make sure this runs synchronously
 		var done = this.async();
 
+		console.log('Hold on while Kirby 2.0 is downloaded');
 		//clone repo
 		// https://github.com/getkirby/toolkit.git
 		// https://github.com/getkirby/kirby.git
@@ -131,8 +132,8 @@ var mlkshkKirbyGenerator = yeoman.generators.Base.extend({
 			this.siteAuthor = props.siteAuthor;
 			this.siteDescription = props.siteDescription;
 			this.siteKeywords = props.siteKeywords;
-			this.includeSass = props.includeSass;
-			this.includeModernizr = props.includeModernizr;
+			// this.includeSass = props.includeSass;
+			// this.includeModernizr = props.includeModernizr;
 
 			done();
 		}.bind(this));
@@ -177,19 +178,15 @@ var mlkshkKirbyGenerator = yeoman.generators.Base.extend({
 		this.template('kirby-files/site.txt', siteDirectory + '/content/site.txt');
 		this.copy('kirby-files/header.php', siteDirectory + '/site/snippets/header.php');
 		this.copy('kirby-files/footer.php', siteDirectory + '/site/snippets/footer.php');
-		// this.copy('jshintrc', siteDirectory + '.jshintrc');
-		// this.copy('kirby-files/htaccess', siteDirectory + '/.htaccess');
-		// this.copy('editorconfig', whichFolder + '/.editorconfig');
-
-		// this.template('kirby-files/admin.php', siteDirectory + '/site/panel/accounts/' + this.panelUsername + '.php');
 	},
 	finish: function () {
 		// Give the user info on how to start developing
 		var howToInstall =
 		'Nice! Now run ' + chalk.magenta('cd ' + siteDirectory + '/') + '.' +
-		'\nYou can either start up the server with MAMP, XAMPP, or the like, or' +
-		'\nYou can run ' + chalk.magenta('php -S localhost:8080') + '.' +
-		'\nEither way, you have completed this scaffolding, young grasshopper.';
+		'\nMake sure you run' + chalk.magenta('npm install') + 'and chalk.' +magenta('bower install') + 
+		'\nThen you can either start up the server with MAMP, XAMPP, or the like, or' +
+		'\nYou can run ' + chalk.magenta('gulp dev') + '.' +
+		'\nEither way, you have completed this scaffolding and are ready to build.';
 		console.log(howToInstall);
 	}
 });

@@ -7,22 +7,21 @@ var gulp = require('gulp');
 var $ = require('gulp-load-plugins')();
 
 gulp.task('styles', function(){
-    return gulp.src('app/assets/styles/sass/main.scss')
+    return gulp.src('app/assets/sass/main.scss')
     .pipe($.rubySass({
-        styles:'expanded',
         precision: 10
     }))
     .pipe($.autoprefixer('last 1 version'))
-    .pipe(gulp.dest('.tmp/assets/styles/'))
+    .pipe(gulp.dest('./app/assets/css/'))
     .pipe($.size());
 });
 
 gulp.task('scripts', function(){
-    return gulp.src('app/assets/scripts/*.js')
+    return gulp.src('app/assets/js/*.js')
     .pipe($.jshint())
     .pipe($.jshint.reporter(require('jshint-stylish')))
     // .pipe($.concat('app.js'))
-    .pipe(gulp.dest('./dist/assets/scripts'))
+    .pipe(gulp.dest('./dist/assets/js'))
     .pipe($.size());
 });
 
@@ -84,11 +83,11 @@ gulp.task('default',  function () {
 
 
 gulp.task('serve', ['styles', 'scripts'], function () {
-    require('opn')('http://localhost:8000');
+    require('opn')('http://localhost:9090');
 });
 
-gulp.task('dev', ['watch'], $.shell.task([
-  'php -S localhost:8000 -t app/',
+gulp.task('dev', $.shell.task([
+  'php -S localhost:9090 ',
   'echo "completed"'
 ]))
 
@@ -117,7 +116,7 @@ gulp.task('watch', ['serve'], function () {
 
     gulp.watch([
         'app/**/*',
-        '.tmp/assets/styles/**/*.css',
+        'app/assets/css/**/*.css',
         'app/assets/scripts/**/*.js',
         'app/assets/images/**/*',
         'app/content/**/*'
@@ -125,7 +124,7 @@ gulp.task('watch', ['serve'], function () {
         server.changed(file.path);
     });
 
-    gulp.watch('app/assets/styles/**/*.scss', ['styles']);
+    gulp.watch('app/assets/sass/**/*.scss', ['styles']);
     gulp.watch('app/assets/scripts/**/*.js', ['scripts']);
     gulp.watch('app/assets/images/**/*', ['images']);
     gulp.watch('app/content/**/*', ['content']);
